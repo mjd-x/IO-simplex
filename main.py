@@ -76,7 +76,7 @@ z.insert(0, "Z")
 z.append("0")
 
 matrix.insert(0, vars)
-matrix.append(z)
+#matrix.append(z)
 print(tabulate(matrix, headers="firstrow"))
 input("")
 # for _ in z:
@@ -106,6 +106,22 @@ def mostrar(solucion):
     print(f"")
 
 #solv = linprog(c, A_ub, b_ub, A_eq, b_eq, bounds, callback=mostrar)
-solv = linprog(c, A_ub, b_ub, bounds=bounds, callback=mostrar)
+solv = linprog(c, A_ub, b_ub, bounds=bounds)
 
+print(f"\nResultado")
+print(f"---------------")
+print(f"Valor optimo: {solv.fun:.2f}")
+
+for i, value in enumerate(solv.x):
+    print(f"\tx{i+1}: {value:.2f}")
+
+message = {
+    0: "Exito",
+    1: "Se alcanzo el limite de iteraciones",
+    2: "El problema no tiene solucion",
+    3: "La solucion no esta acotada",
+    4: "Hubo un problema"
+}
+
+print(f"Estado: {message[solv.status]}")
 
